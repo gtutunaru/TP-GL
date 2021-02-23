@@ -9,6 +9,8 @@ int main(void) {
    Automate * automate = new Automate(chaine);
    automate->read();
    
+   delete (automate);
+
    return 0;
 }
 

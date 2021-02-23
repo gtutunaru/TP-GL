@@ -1,13 +1,25 @@
 #include <iostream>
 
+#include "state0.h"
 #include "automate.h"
 #include "lexer.h"
-#include "state0.h"
+
 
 Automate::Automate(std::string _e){
     expression = _e;
-    State * s = new State0(0);
+    State0 * s = new State0(0);
     stateStack.push(s);
+}
+
+Automate::~Automate(){
+    while (!stateStack.empty()){
+        delete(stateStack.top());
+        stateStack.pop();
+    }
+    while (!symboleStack.empty()){
+        delete(symboleStack.top());
+        symboleStack.pop();
+    }
 }
 
 void Automate::read(){
@@ -17,8 +29,10 @@ void Automate::read(){
     while(*(s=l.Consulter())!=FIN) {
         s->Affiche();
         std::cout<<std::endl;
+        delete(s);
         l.Avancer();
     }
+    delete (s);
 }
 
 void Automate::decalage(Symbole * symb, State *s){
@@ -28,6 +42,8 @@ void Automate::decalage(Symbole * symb, State *s){
 
 void Automate::reduction(int n,  Symbole *s){
     for (int i=0; i<n; i++){
+        delete(stateStack.top());
+        delete(symboleStack.top());
         stateStack.pop();
         symboleStack.pop();
     }

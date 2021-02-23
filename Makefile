@@ -1,16 +1,29 @@
-CC=g++
-CFLAGS = -Wall -g -pedantic -std=c++11
+CFLAGS := -Wall -g -pedantic -std=c++11
+
+SRC_DIR := src
+ OBJ_DIR := obj
+ BIN_DIR := bin
+
+EXE := $(BIN_DIR)/exec
 
 MAIN= exec
-SRCS= lexer.cpp symbole.cpp automate.cpp state.cpp state0.cpp  state1.cpp state2.cpp state3.cpp state4.cpp state5.cpp state6.cpp state7.cpp state8.cpp state9.cpp main.cpp
-OBJS=$(SRCS:.cpp=.o)
+SRC := $(wildcard $(SRC_DIR)/*.cpp)
+ OBJ := $(SRC:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
 
-$(MAIN): $(OBJS)
-	$(CC) -o $(MAIN) $(OBJS)
+.PHONY: all clean
 
-%.o: %.cpp %.h
-	$(CC) $(CFLAGS) -c $< -o $@
+all: $(EXE)
 
-.PHONY: clean
+$(EXE): $(OBJ) | $(BIN_DIR)
+	$(CXX) $^  -o $@
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJ_DIR)
+	$(CXX) $(CFLAGS) -c $< -I ./include/ -o $@
+
+$(BIN_DIR) $(OBJ_DIR):
+	mkdir -p $@
+
 clean:
-	rm *.o $(MAIN)
+	@$(RM) -rv $(BIN_DIR) $(OBJ_DIR)
+
+

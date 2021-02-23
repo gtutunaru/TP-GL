@@ -1,7 +1,9 @@
+#pragma once
+
 #include "state.h"
 
-class State1 : public State {
+class State2 : public State {
     public:
-        State1(int i):State(i){};
+        State2(int i):State(i){};
         bool Transition(Automate * automate, Symbole *s);
 };
