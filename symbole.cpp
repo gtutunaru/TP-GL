@@ -2,11 +2,15 @@
 #include <iostream>
 
 void Symbole::Affiche() {
-   cout<<Etiquettes[ident];
+   std::cout<<Etiquettes[ident];
 }
 
 void Entier::Affiche() {
    Symbole::Affiche();
-   cout<<"("<<valeur<<")";
+   std::cout<<"("<<valeur<<")";
+}
+
+void Symbole::setId(int _ident) {
+   ident = _ident;
 }
 
