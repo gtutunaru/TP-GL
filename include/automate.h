@@ -1,22 +1,26 @@
 #pragma once
 
 #include <string>
-#include <stack>
+#include <vector>
 
 #include "symbole.h"
 #include "state.h"
+#include "lexer.h"
 
 class Automate{
     public:
         Automate(std::string _e);
         ~Automate();
         void decalage(Symbole * symb, State *s);
+        void addState(State * s);
         void reduction(int n,  Symbole *s);
+        std::vector<Symbole *> getStateStack();
         void read();
 
     protected:
         std::string expression;
-        std::stack<State *> stateStack;
-        std::stack<Symbole *> symboleStack;
+        std::vector<State *> stateStack;
+        std::vector<Symbole *> symboleStack;
+        Lexer * l;
 
 };
