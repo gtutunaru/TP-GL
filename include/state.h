@@ -10,7 +10,7 @@ class State {
         State(int _id);
         virtual ~State();
         void Affiche();
-        virtual bool Transition(Automate * automate, Symbole *s)=0;
+        virtual bool Transition(Automate * automate, Symbole *s){return false;};
 
     protected:
         int id;

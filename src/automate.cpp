@@ -1,52 +1,71 @@
 #include <iostream>
 
-#include "state0.h"
+#include "statesDerived.h"
 #include "automate.h"
 #include "lexer.h"
 
 
 Automate::Automate(std::string _e){
     expression = _e;
-    State0 * s = new State0(0);
-    stateStack.push(s);
+    l = new Lexer(expression);
 }
 
 Automate::~Automate(){
     while (!stateStack.empty()){
-        delete(stateStack.top());
-        stateStack.pop();
+        delete(stateStack.back());
+        stateStack.pop_back();
     }
     while (!symboleStack.empty()){
-        delete(symboleStack.top());
-        symboleStack.pop();
+        delete(symboleStack.back());
+        symboleStack.pop_back();
     }
 }
 
 void Automate::read(){
-    Lexer l(expression);
 
     Symbole * s;
-    while(*(s=l.Consulter())!=FIN) {
+
+    State0 * state = new State0(0);
+    stateStack.push_back(state);
+
+    bool transition = true;
+
+    while(transition){
+        s=l->Consulter();
+        stateStack.back()->Transition(this, s);
+    }
+
+    while(*(s=l->Consulter())!=FIN) {
         s->Affiche();
         std::cout<<std::endl;
         delete(s);
-        l.Avancer();
+        l->Avancer();
     }
     delete (s);
 }
 
 void Automate::decalage(Symbole * symb, State *s){
-    symboleStack.push(symb);
-    stateStack.push(s);
+    symboleStack.push_back(symb);
+    stateStack.push_back(s);
 }
 
 void Automate::reduction(int n,  Symbole *s){
     for (int i=0; i<n; i++){
-        delete(stateStack.top());
-        delete(symboleStack.top());
-        stateStack.pop();
-        symboleStack.pop();
+        delete(stateStack.back());
+        delete(symboleStack.back());
+        stateStack.pop_back();
+        symboleStack.pop_back();
     }
+
+    symboleStack.push_back(s);
     
+}
+
+void Automate::addState(State * s){
+    stateStack.push_back(s);
+}
+
+std::vector<Symbole *> Automate::getStateStack(){
+    return symboleStack;
 }
 
