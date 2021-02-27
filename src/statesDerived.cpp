@@ -5,19 +5,22 @@
 
 bool State0::Transition(Automate * automate, Symbole *s){
     std::cout<<"STATE0"<<std::endl;
+    State3 * newState3;
+    State2 * newState2;
+    State1 * newState1;
 
     switch (*s){
         case INT:
-            State3 * newState = new State3(3);
-            automate->decalage(s, newState);
+            newState3 = new State3(3);
+            automate->decalage(s, newState3);
             break;
         case OPENPAR:
-            State2 * newState = new State2(2);
-            automate->decalage(s, newState);
+            newState2 = new State2(2);
+            automate->decalage(s, newState2);
             break;
         case EXPR:
-            State1 * newState = new State1(1);
-            automate->addState(newState);
+            newState1 = new State1(1);
+            automate->addState(newState1);
             break;
         default:
             return false;
@@ -27,14 +30,17 @@ bool State0::Transition(Automate * automate, Symbole *s){
 
 bool State1::Transition(Automate * automate, Symbole *s){
     int resultat;
+    State4 * newState4;
+    State5 * newState5;
+
     switch (*s){
         case PLUS:
-            State4 * newState = new State4(4);
-            automate->decalage(s, newState);
+            newState4 = new State4(4);
+            automate->decalage(s, newState4);
             break;
         case MULT:
-            State5 * newState = new State5(5);
-            automate->decalage(s, newState);
+            newState5 = new State5(5);
+            automate->decalage(s, newState5);
             break;
         case FIN:
             resultat = ((Expression) *automate->getStateStack().back()).getValue();
@@ -47,18 +53,22 @@ bool State1::Transition(Automate * automate, Symbole *s){
 }
 
 bool State2::Transition(Automate * automate, Symbole *s){
+    State3 * newState3;
+    State2 * newState2;
+    State6 * newState6;
+
     switch (*s){
         case INT:
-            State3 * newState = new State3(3);
-            automate->decalage(s, newState);
+            newState3 = new State3(3);
+            automate->decalage(s, newState3);
             break;
         case OPENPAR:
-            State2 * newState = new State2(2);
-            automate->decalage(s, newState);
+            newState2 = new State2(2);
+            automate->decalage(s, newState2);
             break;
         case EXPR:
-            State6 * newState = new State6(6);
-            automate->addState(newState);
+            newState6 = new State6(6);
+            automate->addState(newState6);
             break;
         default:
             return false;
@@ -81,6 +91,7 @@ bool State3::Transition(Automate * automate, Symbole *s){
             automate->reduction(1, newExpr);
             //lastState = automate->getStateStack().back()->
             //return trans;
+            break;
 
         default:
             return false;
@@ -89,18 +100,22 @@ bool State3::Transition(Automate * automate, Symbole *s){
 }
 
 bool State4::Transition(Automate * automate, Symbole *s){
+    State3 * newState3;
+    State2 * newState2;
+    State7 * newState7;
+
     switch (*s){
         case INT:
-            State3 * newState = new State3(3);
-            automate->decalage(s, newState);
+            newState3 = new State3(3);
+            automate->decalage(s, newState3);
             break;
         case OPENPAR:
-            State2 * newState = new State2(2);
-            automate->decalage(s, newState);
+            newState2 = new State2(2);
+            automate->decalage(s, newState2);
             break;
         case EXPR:
-            State7 * newState = new State7(7);
-            automate->addState(newState);
+            newState7 = new State7(7);
+            automate->addState(newState7);
             break;
         default:
             return false;
@@ -109,18 +124,22 @@ bool State4::Transition(Automate * automate, Symbole *s){
 }
 
 bool State5::Transition(Automate * automate, Symbole *s){
+    State3 * newState3;
+    State2 * newState2;
+    State8 * newState8;
+
     switch (*s){
         case INT:
-            State3 * newState = new State3(3);
-            automate->decalage(s, newState);
+            newState3 = new State3(3);
+            automate->decalage(s, newState3);
             break;
         case OPENPAR:
-            State2 * newState = new State2(2);
-            automate->decalage(s, newState);
+            newState2 = new State2(2);
+            automate->decalage(s, newState2);
             break;
         case EXPR:
-            State8 * newState = new State8(8);
-            automate->addState(newState);
+            newState8 = new State8(8);
+            automate->addState(newState8);
             break;
         default:
             return false;
@@ -129,18 +148,21 @@ bool State5::Transition(Automate * automate, Symbole *s){
 }
 
 bool State6::Transition(Automate * automate, Symbole *s){
+    State4 * newState4;
+    State5 * newState5;
+    State9 * newState9;
     switch (*s){
         case PLUS:
-            State4 * newState = new State4(4);
-            automate->decalage(s, newState);
+            newState4 = new State4(4);
+            automate->decalage(s, newState4);
             break;
         case MULT:
-            State5 * newState = new State5(5);
-            automate->decalage(s, newState);
+            newState5 = new State5(5);
+            automate->decalage(s, newState5);
             break;
         case CLOSEPAR:
-            State9 * newState = new State9(9);
-            automate->decalage(s, newState);
+            newState9 = new State9(9);
+            automate->decalage(s, newState9);
             break;
         default:
             return false;
@@ -151,9 +173,11 @@ bool State6::Transition(Automate * automate, Symbole *s){
 bool State7::Transition(Automate * automate, Symbole *s){
     std::vector<Symbole *> stateVector = automate->getStateStack();
 
-    Entier e1 = (Expression) *(stateVector.back());
-    Entier e2 = (Expression) *(stateVector.at(stateVector.size()-3));
+    Expression e1 = (Expression) *(stateVector.back());
+    Expression e2 = (Expression) *(stateVector.at(stateVector.size()-3));
     Symbole * newExpr = new Expression(e1.getValue() + e2.getValue());
+
+    State5 * newState5;
 
     switch (*s){
         case PLUS:
@@ -165,8 +189,8 @@ bool State7::Transition(Automate * automate, Symbole *s){
             break;
 
         case MULT:
-            State5 * newState = new State5(5);
-            automate->decalage(s, newState);
+            newState5 = new State5(5);
+            automate->decalage(s, newState5);
             break;
         default:
             return false;
@@ -177,8 +201,8 @@ bool State7::Transition(Automate * automate, Symbole *s){
 bool State8::Transition(Automate * automate, Symbole *s){
     std::vector<Symbole *> stateVector = automate->getStateStack();
 
-    Entier e1 = (Expression) *(stateVector.back());
-    Entier e2 = (Expression) *(stateVector.at(stateVector.size()-3));
+    Expression e1 = (Expression) *(stateVector.back());
+    Expression e2 = (Expression) *(stateVector.at(stateVector.size()-3));
     Symbole * newExpr = new Expression(e1.getValue() * e2.getValue());
 
     switch (*s){
