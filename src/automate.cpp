@@ -19,6 +19,7 @@ Automate::~Automate(){
         delete(symboleStack.back());
         symboleStack.pop_back();
     }
+    delete(l);
 }
 
 void Automate::read(){
