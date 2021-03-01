@@ -12,7 +12,7 @@ void Entier::Affiche() {
 
 void Expression::Affiche() {
    Symbole::Affiche();
-   std::cout<<"("<<valeur<<")";
+   std::cout<<"("<<valeur<<")"<<std::endl;
 }
 
 void Symbole::setId(int _ident) {

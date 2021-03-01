@@ -14,7 +14,8 @@ class Automate{
         void decalage(Symbole * symb, State *s);
         void addState(State * s);
         void reduction(int n,  Symbole *s);
-        std::vector<Symbole *> getStateStack();
+        std::vector<State *> getStateStack();
+        std::vector<Symbole *> getSymboleStack();
         void read();
 
     protected:

@@ -8,5 +8,5 @@ State::State(int i){
 State::~State(){}
 
 void State::Affiche(){
-    std::cout<<"State "<<id<<std::endl;
+    std::cout<<"=== STATE "<<id<<" ==="<<std::endl;
 }

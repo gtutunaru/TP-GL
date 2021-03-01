@@ -5,9 +5,8 @@ SRC_DIR := src
 OBJ_DIR := obj
 BIN_DIR := bin
 
-EXE := $(BIN_DIR)/exec
+EXE := $(BIN_DIR)/calculator
 
-MAIN= exec
 SRC := $(wildcard $(SRC_DIR)/*.cpp)
 OBJ := $(SRC:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
 

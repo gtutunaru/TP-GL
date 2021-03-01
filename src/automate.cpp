@@ -32,21 +32,20 @@ void Automate::read(){
 
     while(transition){
         s=l->Consulter();
-        stateStack.back()->Transition(this, s);
+        //s->Affiche();
+        //std::cout<<std::endl;
+        transition = stateStack.back()->Transition(this, s);
     }
 
-    while(*(s=l->Consulter())!=FIN) {
-        s->Affiche();
-        std::cout<<std::endl;
-        delete(s);
-        l->Avancer();
-    }
     delete (s);
 }
 
 void Automate::decalage(Symbole * symb, State *s){
     symboleStack.push_back(symb);
     stateStack.push_back(s);
+
+    //avancer lexer
+    l->Avancer();
 }
 
 void Automate::reduction(int n,  Symbole *s){
@@ -65,7 +64,11 @@ void Automate::addState(State * s){
     stateStack.push_back(s);
 }
 
-std::vector<Symbole *> Automate::getStateStack(){
+std::vector<State *> Automate::getStateStack(){
+    return stateStack;
+}
+
+std::vector<Symbole *> Automate::getSymboleStack(){
     return symboleStack;
 }
 
